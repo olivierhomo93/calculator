@@ -20,3 +20,19 @@ steps:
     npm run build
     npm test
   displayName: 'npm install, build and test'
+
+
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare analysis configuration'
+  inputs:
+    SonarCloud: 'SC'
+    organization: 'myorga'
+    scannerMode: 'MSBuild'
+    projectKey: 'dotnet-framework-on-azdo'
+    projectName: 'Sample .NET Framework project with Azure DevOps'
+
+- task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud analysis'
+
+- task: SonarCloudPublish@1
+  displayName: 'Publish results on build summary'
